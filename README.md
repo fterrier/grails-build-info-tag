@@ -9,9 +9,9 @@ collects the GIT commit number and displays it (in Windows it manually parses th
 
 ## Installation
 
-Put in app BuildConfig:
+Put in app BuildConfig plugin dependencies:
 
-    grails.plugin.location.'build-info-tag' = "/path/to/this/plugin"
+    compile ":build-info-tag:0.3"
 
 ## Tags
 

@@ -1,8 +1,8 @@
 class BuildInfoTagGrailsPlugin {
     // the plugin version
-    def version = "0.1"
+    def version = "0.3"
     // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "2.0 > *"
+    def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on
     def dependsOn = [:]
     // resources that are excluded from plugin packaging
@@ -31,7 +31,7 @@ collects the GIT commit number and displays it (won't work on Windows).
     def organization = [ name: "CHAI", url: "http://www.clintonhealthaccess.org/" ]
 
     // Any additional developers beyond the author specified above.
-//    def developers = [ [ name: "Joe Bloggs", email: "joe@bloggs.net" ]]
+    def developers = [ [ name: "Enrico Comiti", email: "enrico@comiti.name" ]]
 
     // Location of the plugin's issue tracker.
 //    def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPMYPLUGIN" ]
