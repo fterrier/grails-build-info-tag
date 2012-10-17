@@ -1,13 +1,13 @@
 class BuildInfoTagGrailsPlugin {
     // the plugin version
-    def version = "0.3"
+    def version = "0.3.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.7 > *"
     // the other plugins this plugin depends on
     def dependsOn = [:]
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
-        "grails-app/views/error.gsp"
+        "grails-app/views/error.gsp",
 		"grails-app/views/*",
 		"web-app/css/*",
 		"web-app/js/*",
@@ -18,9 +18,9 @@ class BuildInfoTagGrailsPlugin {
     def author = "François Terrier"
     def authorEmail = "fterrier@gmail.com"
     def description = '''\
-Puts a build.info file in the generated WAR file and provides a GSP tag to display
+Puts a build.info file in the generated WAR file and provides a few GSP tags to display
 the information in it. For now, the build number is the date and the plugin also
-collects the GIT commit number and displays it (won't work on Windows).
+collects the GIT commit number and displays it.
 '''
 
     // URL to the plugin's documentation
