@@ -8,6 +8,10 @@ class BuildInfoTagGrailsPlugin {
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
         "grails-app/views/error.gsp"
+		"grails-app/views/*",
+		"web-app/css/*",
+		"web-app/js/*",
+		"web-app/images/*"
     ]
 
     def title = "Build Info Tag Plugin" // Headline display name of the plugin
