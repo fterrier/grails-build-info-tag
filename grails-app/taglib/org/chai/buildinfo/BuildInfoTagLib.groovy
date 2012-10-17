@@ -21,12 +21,15 @@ class BuildInfoTagLib {
 		}
 		return buildInstance
 	}
+    
+    def getBuildProperty(String propertyName) {
+        return (build ? build[propertyName] : '')
+    }
 		
 	def buildInfo = {attrs, body ->
         if (build == null) {
             out << "no build info found"
-        }
-        else {
+        } else {
             out << render(plugin:'buildInfoTag', template:'/templates/buildInfo', model:[
                 buildDate: build.'app.buildDate',
                 gitCommit: build.'app.gitCommit',
@@ -35,5 +38,17 @@ class BuildInfoTagLib {
             ])
         }
 	}
-	
+
+	def buildDate = {attrs, body ->
+        out << getBuildProperty('app.buildDate')
+	}
+	def gitCommit = {attrs, body ->
+        out << getBuildProperty('app.gitCommit')
+	}
+	def systemName = {attrs, body ->
+        out << getBuildProperty('app.systemName')
+	}
+	def timezone = {attrs, body ->
+        out << getBuildProperty('app.timezone')
+	}
 }
