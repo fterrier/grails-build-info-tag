@@ -15,10 +15,23 @@ def writeBuildInfoFile(path) {
 	
 	def gitCommit = ''
 	try {
-		// TODO make it platform independant
 		def proc = "git rev-parse HEAD".execute()
 		gitCommit = proc.text
-	} catch (Exception e) {}
+	} catch (Exception e) {
+        // workaround for win
+        def headFile = new File(".git/HEAD")
+        def refsHeadPath = ''
+        if (headFile.exists()) {
+            def headContents = headFile.text.trim()
+            refsHeadPath = headContents.split(':')[1].trim()
+            def refsHeadFile = new File(".git/${refsHeadPath}")
+            if (refsHeadFile.isFile()) {
+                gitCommit = refsHeadFile.text.trim()
+            }
+        } else {
+            println "No Git files found... It seems this project is not using Git."
+        }
+    }
 	
 	Metadata build = Metadata.getInstance(new File(path));
 	build.'app.buildDate' = buildDate
