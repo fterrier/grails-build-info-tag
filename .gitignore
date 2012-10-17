@@ -2,3 +2,5 @@
 *.class
 target
 *.log
+stacktrace.log
+/plugin.xml
