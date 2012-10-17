@@ -97,11 +97,12 @@
 			</ul>
 		</div>
 		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
+			<h1>Welcome to Grails Build Info Plugin Test App</h1>
+			<p>build:buildInfo tag:<br><build:buildInfo/></p>
+			<p>build:buildDate tag:<br><build:buildDate/></p>
+			<p>build:gitCommit tag:<br><build:gitCommit/></p>
+			<p>build:systemName tag:<br><build:systemName/></p>
+			<p>build:timezone tag:<br><build:timezone/></p>
 
 			<div id="controller-list" role="navigation">
 				<h2>Available Controllers:</h2>

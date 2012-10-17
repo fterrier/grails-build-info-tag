@@ -21,24 +21,34 @@ class BuildInfoTagLib {
 		}
 		return buildInstance
 	}
+    
+    def getBuildProperty(String propertyName) {
+        return (build ? build[propertyName] : '')
+    }
 		
 	def buildInfo = {attrs, body ->
-		if (GrailsUtil.environment == 'production') {
-			if (build == null) {
-				out << "no build info found"
-			}
-			else {
-				out << render(plugin:'buildInfoTag', template:'/templates/buildInfo', model:[
-					buildDate: build.'app.buildDate',
-					gitCommit: build.'app.gitCommit',
-					systemName: build.'app.systemName',
-					timezone: build.'app.timezone'
-				])
-			}
-		}
-		else {
-			out << "no build info in ${GrailsUtil.environment} environment"
-		}
+        if (build == null) {
+            out << "no build info found"
+        } else {
+            out << render(plugin:'buildInfoTag', template:'/templates/buildInfo', model:[
+                buildDate: build.'app.buildDate',
+                gitCommit: build.'app.gitCommit',
+                systemName: build.'app.systemName',
+                timezone: build.'app.timezone'
+            ])
+        }
 	}
-	
+
+	def buildDate = {attrs, body ->
+        out << getBuildProperty('app.buildDate')
+	}
+	def gitCommit = {attrs, body ->
+        out << getBuildProperty('app.gitCommit')
+	}
+	def systemName = {attrs, body ->
+        out << getBuildProperty('app.systemName')
+	}
+	def timezone = {attrs, body ->
+        out << getBuildProperty('app.timezone')
+	}
 }
