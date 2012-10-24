@@ -1,4 +1,3 @@
-import grails.util.Metadata;
 
 import java.text.SimpleDateFormat;
 
@@ -9,15 +8,15 @@ def triggeredFromRunApp(String message) {
 
 def writeBuildInfoFile(path) {
     println "Write build info file ${path}"
-	def formatter = new SimpleDateFormat("ddMMyyyy-HHmmss")
-	def buildDate = formatter.format(new Date(System.currentTimeMillis()))
-	buildDate += '-'+Calendar.getInstance().getTimeZone().getDisplayName(false, TimeZone.SHORT)
-	
-	def gitCommit = ''
-	try {
-		def proc = "git rev-parse HEAD".execute()
-		gitCommit = proc.text
-	} catch (Exception e) {
+    def formatter = new SimpleDateFormat("ddMMyyyy-HHmmss")
+    def buildDate = formatter.format(new Date(System.currentTimeMillis()))
+    buildDate += '-'+Calendar.getInstance().getTimeZone().getDisplayName(false, TimeZone.SHORT)
+
+    def gitCommit = ''
+    try {
+        def proc = "git rev-parse HEAD".execute()
+        gitCommit = proc.text
+    } catch (Exception e) {
         // workaround for win
         def headFile = new File(".git/HEAD")
         def refsHeadPath = ''
@@ -32,15 +31,15 @@ def writeBuildInfoFile(path) {
             println "No Git files found... It seems this project is not using Git."
         }
     }
-	
-	Metadata build = Metadata.getInstance(new File(path));
-	build.'app.buildDate' = buildDate
-	build.'app.gitCommit' = gitCommit
-	build.'app.systemName' = InetAddress.getLocalHost().getHostName()
-	build.'app.timezone' = Calendar.getInstance().getTimeZone().getID()
-	build.persist()
+
+    Ant.propertyfile(file: path) {
+        entry(key: 'app.buildDate', value: buildDate)
+        entry(key: 'app.gitCommit', value: gitCommit)
+        entry(key: 'app.systemName', value: InetAddress.getLocalHost().getHostName())
+        entry(key: 'app.timezone', value: Calendar.getInstance().getTimeZone().getID())
+    }
  
-	println "Compile Starting on build #${buildDate}, git commit: ${gitCommit}"
+    println "Compile Starting on build #${buildDate}, git commit: ${gitCommit}"
 }
 
 eventStatusFinal = { message ->
