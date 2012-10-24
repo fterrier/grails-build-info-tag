@@ -98,6 +98,7 @@
 		</div>
 		<div id="page-body" role="main">
 			<h1>Welcome to Grails Build Info Plugin Test App</h1>
+            <p>App version <g:meta name="app.version"/> Grails <g:meta name="app.grails.version"/></p>
 			<p>build:buildInfo tag:<br><build:buildInfo/></p>
 			<p>build:buildDate tag:<br><build:buildDate/></p>
 			<p>build:gitCommit tag:<br><build:gitCommit/></p>
