@@ -13,10 +13,13 @@ def writeBuildInfoFile(path) {
 	def buildDate = formatter.format(new Date(System.currentTimeMillis()))
 	buildDate += '-'+Calendar.getInstance().getTimeZone().getDisplayName(false, TimeZone.SHORT)
 	
-	def gitCommit = ''
+	def gitCommit = System.getenv('GIT_COMMIT') ?: ''
 	try {
 		def proc = "git rev-parse HEAD".execute()
-		gitCommit = proc.text
+	    proc.waitFor()
+	    if (proc.exitValue() == 0) {
+		    gitCommit = proc.text
+		}
 	} catch (Exception e) {
         // workaround for win
         def headFile = new File(".git/HEAD")
@@ -28,9 +31,10 @@ def writeBuildInfoFile(path) {
             if (refsHeadFile.isFile()) {
                 gitCommit = refsHeadFile.text.trim()
             }
-        } else {
-            println "No Git files found... It seems this project is not using Git."
         }
+    }
+    if (!gitCommit) {
+        println 'Neither Git files nor "GIT_COMMIT" env var found...'
     }
 	
 	Metadata build = Metadata.getInstance(new File(path));
